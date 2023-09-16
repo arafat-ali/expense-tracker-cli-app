@@ -1,4 +1,11 @@
 <?php
+require './helpers/handleFile.php';
+require './models/operation.php';
 
+$operation = new Operation();
+$operation->start();
 
-echo "Assignment Two Started";
+while(true){
+    $operation->getInputOfOption();
+    
+}
