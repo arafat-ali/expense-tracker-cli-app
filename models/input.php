@@ -1,13 +1,21 @@
 <?php
 
 class Input {
-    private $option;
+    private int $option;
 
-    public function setInput(){
-        $this->$option = (int) readline('Please enter an option: ');
+    public function setInput():void{
+        $this->option = (int) readline('Please enter an option: ');
     }
 
-    public function getInput(){
-        return $this->$option;
+    public function getInput():int{
+        return $this->option;
+    }
+
+    public function showOption(Array $options){
+        echo "\n";
+        foreach($options as $id => $option){
+            echo "Press $id to - $option \n";
+        }
+        echo "\n";
     }
 }
