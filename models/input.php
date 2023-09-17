@@ -11,7 +11,7 @@ class Input {
         return $this->option;
     }
 
-    public function showOption(Array $options){
+    public function showOption(array $options){
         echo "\n";
         foreach($options as $id => $option){
             echo "Press $id to - $option \n";

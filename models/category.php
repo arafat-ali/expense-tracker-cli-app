@@ -1,6 +1,4 @@
 <?php
-
-require_once './helpers/handleFile.php';
 require_once 'input.php';
 
 class Category extends Input{
@@ -11,6 +9,10 @@ class Category extends Input{
     private array $categories = [
         [
             "name" => "Salary",
+            "type" => "Income"
+        ],
+        [
+            "name" => "Bonus",
             "type" => "Income"
         ],
         [
@@ -31,14 +33,21 @@ class Category extends Input{
         $this->showOption($this->categoryTypesOptions);
         $this->type = (int) readline('Please enter an option of type: ');
         $this->name = (string) readline('Please enter category name: ');
+
         array_push($this->categories, [
             "name" => $this->name,
             "type" => $this->type==1 ? 'Income':'Expense',
         ]);
+
         echo "\nCategory added Successfully!\n";
     }
 
-    public function getCategories():void{
+
+    public function getCategories():array{
+        return $this->categories;
+    }
+
+    public function showCategories():void{
         echo "\n\nList of Categories --\n";
         foreach($this->categories as $category){
             echo "Name: $category[name] - Type: $category[type]\n";
