@@ -1,57 +1,53 @@
 <?php
-require_once './helpers/handleFile.php';
-require_once './models/operation.php';
-require_once './models/expense.php';
-require_once './models/income.php';
-require_once './models/category.php';
+
+require_once './controller/operationController.php';
+require_once './controller/categoryController.php';
+require_once './controller/incomeController.php';
+require_once './controller/expenseController.php';
 
 echo "\nWellcome to Income-Expense Tracker System!\n";
-$operation = new Operation();
-$operation->showOperationalOptions();
+$operationController = new OperationController();
+$operationController->showOperations();
 
-$category = new Category();
-
-function viewCategories():void{
-    global $category;
-    $category->getCategories();
-}
-
-function addCategory(){
-    global $category;
-    $category->setCategory();
-}
-
-
+$categoryController = new CategoryController();
+$incomeController = new IncomeController();
+$expenseController = new ExpenseController();
 
 $exit = false;
 while(!$exit){
-    $operation->setInput();
+    $operationController->setInput();
 
-    switch ($operation->getInput()) {
+    switch ($operationController->getInput()) {
         case 1:
-            viewCategories();
-            $operation->showOperationalOptions();
+            $categoryController->viewCategories();
+            $operationController->showOperations();
             break;
 
         case 2:
-            addCategory();
-            $operation->showOperationalOptions();
+            $categoryController->addCategory();
+            $operationController->showOperations();
             break;
 
         case 3:
-            echo "Add Income";
-          break;
+            $incomeController->viewIncomeList();
+            $operationController->showOperations();
+            break;
 
         case 4:
-            echo "Add Expense";
+            $incomeController->setIncomeOptions($categoryController->getIncomeCategory());
+            $incomeController->addIncome();
+            $operationController->showOperations();
             break;
 
         case 5:
-            echo "View Income";
+            $expenseController->viewExpenseList();
+            $operationController->showOperations();
             break;
 
         case 6:
-            echo "View Expense";
+            $expenseController->setExpenseOptions($categoryController->getExpenseCategory());
+            $expenseController->addExpense();
+            $operationController->showOperations();
             break;
         
         case 0:

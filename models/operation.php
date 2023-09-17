@@ -15,7 +15,7 @@ class Operation extends Input{
         "0" => "Exit Application"
     ];
 
-    public function showOperationalOptions():void{
+    public function showOptions():void{
         $this->showOption($this->options);
     }
 
