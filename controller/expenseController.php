@@ -26,6 +26,12 @@ class ExpenseController extends Expense{
         $this->setExpenseTypesOptions($incomeCategoryOptions);
     }
 
+    public function getTotalExpense():int{
+        $expenseList = $this->getExpenseListFromFile();
+        $this->setExpenses($expenseList);
+        return $this->getTotalExpenseValue();
+    }
+
 
     private function getExpenseListFromFile(){
         $headingIndex = true;

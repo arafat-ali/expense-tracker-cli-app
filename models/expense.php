@@ -47,6 +47,10 @@ class Expense extends Input{
         echo "\n";
     }
 
+    public function getTotalExpenseValue():int{
+        return array_sum(array_map(fn ($item) => $item['amount'], $this->expenses));
+    }
+
 
     public function setExpenseTypesOptions(array $expenseTypesOptions):void {
         $this->expenseTypesOptions = $expenseTypesOptions;

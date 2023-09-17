@@ -27,6 +27,12 @@ class IncomeController extends Income{
         $this->setIncomeTypesOptions($incomeCategoryOptions);
     }
 
+    public function getTotalIncome():int{
+        $incomeList = $this->getIncomeListFromFile();
+        $this->setIncomes($incomeList);
+        return $this->getTotalIncomeValue();
+    }
+
     private function getIncomeListFromFile(){
         $headingIndex = true;
         $fileData = [];
