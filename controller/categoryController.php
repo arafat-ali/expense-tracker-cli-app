@@ -14,7 +14,7 @@ class CategoryController extends Category{
         if($this->insertCategoryIntoFile($newCategory))
             echo "\nCategory added Successfully!\n";
         else
-            echo "\nSomething happend bad :(!\n";
+            echo "\nSomething happened bad :(!\n";
     }
 
     public function getIncomeCategory():array{

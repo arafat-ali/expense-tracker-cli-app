@@ -4,7 +4,7 @@ require_once 'input.php';
 class Expense extends Input{
     private string $name;
     private int $amount;
-    // private $filePath;
+    protected string $filePath = './database/Expense.csv';
 
     private array $expenses = [];
 
@@ -19,14 +19,18 @@ class Expense extends Input{
         $this->name = $this->expenseTypesOptions[$selected0ption];
         $this->amount = (int) readline('Please enter amount: ');
 
-        array_push($this->expenses, [
-            "name" => $this->name,
-            "amount" => $this->amount
-        ]);
+        // ** When I worked without file ** //
+        // array_push($this->expenses, [
+        //     "name" => $this->name,
+        //     "amount" => $this->amount
+        // ]);
 
-        echo "\nExpense added Successfully!\n";
+        return [$this->name, $this->amount];
     }
 
+    public function setExpenses(array $expenses){
+        $this->expenses = $expenses;
+    }
 
     public function getExpenses():array{
         return $this->expenses;

@@ -15,7 +15,7 @@ class IncomeController extends Income{
         if($this->insertIncomeListIntoFile($newIncome))
             echo "\nIncome added Successfully!\n";
         else
-            echo "\nSomething happend bad :(!\n";
+            echo "\nSomething happened bad :(!\n";
     }
 
     public function setIncomeOptions(array $incomeCategories):void{
