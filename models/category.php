@@ -39,7 +39,7 @@ class Category extends Input{
     }
 
     public function getCategories():void{
-        echo "\n\nList of Categories\n";
+        echo "\n\nList of Categories --\n";
         foreach($this->categories as $category){
             echo "Name: $category[name] - Type: $category[type]\n";
         }
