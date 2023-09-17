@@ -1,7 +1,6 @@
 <?php
 
 require_once './models/category.php';
-
 class CategoryController extends Category{
     
     public function viewCategories():void{
@@ -12,14 +11,21 @@ class CategoryController extends Category{
 
     public function addCategory():void{
         $newCategory = $this->setCategory();
-        $this->insertCategoryIntoFile($newCategory);
+        if($this->insertCategoryIntoFile($newCategory))
+            echo "\nCategory added Successfully!\n";
+        else
+            echo "\nSomething happend bad :(!\n";
     }
 
     public function getIncomeCategory():array{
+        $categories = $this->getCategoriesFromFile();
+        $this->setCategories($categories);
         return array_filter($this->getCategories(), fn($el) => $el['type'] == "Income");
     }
 
     public function getExpenseCategory():array{
+        $categories = $this->getCategoriesFromFile();
+        $this->setCategories($categories);
         return array_filter($this->getCategories(), fn($el) => $el['type'] == "Expense");
     }
 
@@ -41,11 +47,13 @@ class CategoryController extends Category{
     }
 
 
-    private function insertCategoryIntoFile($newCategory){
+    private function insertCategoryIntoFile($newCategory) : bool{
         if (($open = fopen($this->filePath, 'a')) !== FALSE) {
             fputcsv($open, $newCategory);
             fclose($open);
+            return true;
         }
+        return false;
         
     }
 
