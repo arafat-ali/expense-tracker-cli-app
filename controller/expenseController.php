@@ -1,15 +1,20 @@
 <?php
 
 require_once './models/expense.php';
-
 class ExpenseController extends Expense{
 
     public function viewExpenseList():void{
+        $expenseList = $this->getExpenseListFromFile();
+        $this->setExpenses($expenseList);
         $this->showExpenseList();
     }
 
     public function addExpense():void{
-        $this->setExpense();
+        $newExpense = $this->setExpense();
+        if($this->insertExpenseListIntoFile($newExpense))
+            echo "\nExpense added Successfully!\n";
+        else
+            echo "\nSomething happened bad :(!\n";
     }
 
     public function setExpenseOptions(array $incomeCategories):void{
@@ -19,6 +24,34 @@ class ExpenseController extends Expense{
             $incomeCategoryOptions[$optionIndex++] = $category['name'];
         }
         $this->setExpenseTypesOptions($incomeCategoryOptions);
+    }
+
+
+    private function getExpenseListFromFile(){
+        $headingIndex = true;
+        $fileData = [];
+        if (($open = fopen($this->filePath, 'r')) !== FALSE) {
+            while (($data = fgetcsv($open, 1000, ",")) !== FALSE) {
+                if($headingIndex==true){
+                    $headingIndex = false;
+                    continue;
+                }
+                array_push($fileData, ["name" => $data[0], "amount"=>$data[1]]);
+            }
+            fclose($open);
+        }
+        return $fileData;
+    }
+
+
+    private function insertExpenseListIntoFile($newCategory):bool{
+        if (($open = fopen($this->filePath, 'a')) !== FALSE) {
+            fputcsv($open, $newCategory);
+            fclose($open);
+            return true;
+        }
+        return false;
+        
     }
 
 }

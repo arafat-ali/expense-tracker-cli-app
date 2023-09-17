@@ -4,7 +4,7 @@ require_once 'input.php';
 class Income extends Input{
     private string $name;
     private int $amount;
-    // private $filePath;
+    protected string $filePath = './database/Income.csv';
 
     private array $incomes = [];
 
@@ -19,14 +19,18 @@ class Income extends Input{
         $this->name = $this->incomeTypesOptions[$selected0ption];
         $this->amount = (string) readline('Please enter amount: ');
         
-        array_push($this->incomes, [
-            "name" => $this->name,
-            "amount" => $this->amount
-        ]);
+        // ** When I worked without file ** //
+        // array_push($this->incomes, [
+        //     "name" => $this->name,
+        //     "amount" => $this->amount
+        // ]);
 
-        echo "\nIncome added Successfully!\n";
+        return [$this->name, $this->amount];
     }
 
+    public function setIncomes(array $incomes){
+        $this->incomes = $incomes;
+    }
 
     public function getIncomes():array{
         return $this->incomes;
@@ -37,9 +41,9 @@ class Income extends Input{
         $total = 0;
         foreach($this->incomes as $income){
             $total+= (int) $income['amount'];
-            echo "Name: $income[name] - Amount: $income[amount]\n";
+            echo "Name: $income[name] \t Amount: $income[amount]\n";
         }
-        echo "Total income - $total\n";
+        echo "\nTotal income amount: $total\n";
         echo "\n";
     }
 

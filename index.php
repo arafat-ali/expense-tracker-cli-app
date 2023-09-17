@@ -5,15 +5,15 @@ require_once './controller/categoryController.php';
 require_once './controller/incomeController.php';
 require_once './controller/expenseController.php';
 
-echo "\nWellcome to Income-Expense Tracker System!\n";
-$operationController = new OperationController();
-$operationController->showOperations();
 
+$operationController = new OperationController();
 $categoryController = new CategoryController();
 $incomeController = new IncomeController();
 $expenseController = new ExpenseController();
 
 $exit = false;
+echo "\nWellcome to Income-Expense Tracker System!\n";
+$operationController->showOperations();
 while(!$exit){
     $operationController->setInput();
 
@@ -48,6 +48,10 @@ while(!$exit){
             $expenseController->setExpenseOptions($categoryController->getExpenseCategory());
             $expenseController->addExpense();
             $operationController->showOperations();
+            break;
+
+        case 7:
+            echo "Showing Savings";
             break;
         
         case 0:
