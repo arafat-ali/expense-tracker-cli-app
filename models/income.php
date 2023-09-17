@@ -47,6 +47,10 @@ class Income extends Input{
         echo "\n";
     }
 
+    public function getTotalIncomeValue():int{
+        return array_sum(array_map(fn ($item) => $item['amount'], $this->incomes));
+    }
+
 
     public function setIncomeTypesOptions(array $incomeTypesOptions):void {
         $this->incomeTypesOptions = $incomeTypesOptions;

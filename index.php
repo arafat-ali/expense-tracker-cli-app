@@ -51,7 +51,9 @@ while(!$exit){
             break;
 
         case 7:
-            echo "Showing Savings";
+            $savings = (int)$incomeController->getTotalIncome() - (int) $expenseController->getTotalExpense();
+            echo "\nYour Savings/Current Balance : $savings\n";
+            $operationController->showOperations();
             break;
         
         case 0:
@@ -59,8 +61,9 @@ while(!$exit){
             break;
 
         default:
-            echo "Invalid Option";
+            echo "\nInvalid Option :(\n";
+            $operationController->showOperations();
     }
 }
 
-echo "\nApplication Exited!\n\n";
+echo "\n**Happy Coding**\n\n";
